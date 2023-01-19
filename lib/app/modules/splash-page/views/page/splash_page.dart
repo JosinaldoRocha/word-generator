@@ -43,7 +43,19 @@ class _SplashPAgeState extends ConsumerState<SplashPAge> {
             ],
           ),
         ),
-        child: const CenterTextCardWidget(title: 'Gerador de palavras'),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/images/gw.png'),
+              ),
+              SizedBox(height: 20),
+              CenterTextCardWidget(title: 'Gerador de palavras'),
+            ],
+          ),
+        ),
       ),
     );
   }
