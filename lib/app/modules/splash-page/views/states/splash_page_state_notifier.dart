@@ -10,8 +10,7 @@ class SplashPageStateNotifier extends StateNotifier<SplashPageState> {
   load() async {
     state = LoadingSplashPageState();
     try {
-      final success = await appRepository.newPage();
-      state = SuccessSplashPageState(page: success);
+      state = SuccessSplashPageState();
     } catch (e) {
       state = FailureSplashPageState(errorMessage: 'Erro ao carregar dados');
     }

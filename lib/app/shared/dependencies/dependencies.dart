@@ -9,41 +9,46 @@ import 'package:app_flutter/app/modules/generator-page/views/state/generator-sat
 import 'package:app_flutter/app/modules/splash-page/views/states/splash_page_state.dart';
 import 'package:app_flutter/app/modules/splash-page/views/states/splash_page_state_notifier.dart';
 import 'package:app_flutter/app/shared/repositorys/app_repository.dart';
+import 'package:app_flutter/app/shared/repositorys/generator_word_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final appRepositoryProvider = Provider(
   (ref) => AppRepository(),
 );
 
-final favoriteListState =
+final generatorRepositoryProvider = Provider<GeneratorWordRepository>(
+  (ref) => GeneratorWordRepository(),
+);
+
+final favoriteProvider =
     StateNotifierProvider<FavoritesListStateNotifier, FavoritesListState>(
   (ref) => FavoritesListStateNotifier(
     appRepository: ref.read(appRepositoryProvider),
   ),
 );
 
-final generatorState =
+final generatorProvider =
     StateNotifierProvider<GeneratorStateNotifier, GeneratorState>(
   (ref) => GeneratorStateNotifier(
-    appReporsitory: ref.read(appRepositoryProvider),
+    generatorReporsitory: ref.read(generatorRepositoryProvider),
   ),
 );
 
-final addFavoriteState =
+final addFavoriteProvider =
     StateNotifierProvider<AddFavoriteStateNotifier, AddFavoriteState>(
   (ref) => AddFavoriteStateNotifier(
     appRepository: ref.read(appRepositoryProvider),
   ),
 );
 
-final deleteFavoriteState =
+final deleteFavoriteProvider =
     StateNotifierProvider<DeleteFavoriteStateNotifier, DeleteFavoriteState>(
   (ref) => DeleteFavoriteStateNotifier(
     appRepository: ref.read(appRepositoryProvider),
   ),
 );
 
-final splashState =
+final splashProvider =
     StateNotifierProvider<SplashPageStateNotifier, SplashPageState>(
   (ref) => SplashPageStateNotifier(
     appRepository: ref.read(appRepositoryProvider),

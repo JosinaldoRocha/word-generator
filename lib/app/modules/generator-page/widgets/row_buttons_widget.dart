@@ -7,12 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RowButtonsWidget extends ConsumerStatefulWidget {
   const RowButtonsWidget({
-    required this.generateState,
-    required this.favoriteState,
     super.key,
+    required this.word,
   });
-  final SuccessGeneratorState generateState;
-  final FavoritesListState favoriteState;
+  final String word;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -22,19 +20,20 @@ class RowButtonsWidget extends ConsumerStatefulWidget {
 class _RowButtonsWidgetState extends ConsumerState<RowButtonsWidget> {
   @override
   Widget build(BuildContext context) {
+    final favoriteState = ref.watch(favoriteProvider);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (widget.favoriteState is LoadingFavoritesListState)
+        if (favoriteState is LoadingFavoritesListState)
           const Center(
             child: CircularProgressIndicator(),
           )
         else
           ElevatedButton.icon(
             onPressed: () {
-              final item =
-                  AppModel(word: widget.generateState.newWord.asLowerCase);
-              ref.read(addFavoriteState.notifier).addWord(item);
+              final item = AppModel(word: widget.word);
+              ref.read(addFavoriteProvider.notifier).addWord(item);
             },
             icon: Icon(icon()),
             label: const Text('Like'),
@@ -42,7 +41,7 @@ class _RowButtonsWidgetState extends ConsumerState<RowButtonsWidget> {
         const SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {
-            ref.read(generatorState.notifier).generator();
+            ref.read(generatorProvider.notifier).generator();
           },
           child: const Text('Next'),
         ),
@@ -51,8 +50,8 @@ class _RowButtonsWidgetState extends ConsumerState<RowButtonsWidget> {
   }
 
   IconData icon() {
-    final generateState = ref.watch(generatorState);
-    final favoriteState = ref.watch(favoriteListState);
+    final generateState = ref.watch(generatorProvider);
+    final favoriteState = ref.watch(favoriteProvider);
     IconData icon = Icons.favorite_border;
 
     if (generateState is SuccessGeneratorState) {

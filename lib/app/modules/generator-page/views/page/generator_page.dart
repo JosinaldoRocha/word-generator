@@ -16,10 +16,10 @@ class GeneratorPage extends ConsumerStatefulWidget {
 class _GeneratorPageState extends ConsumerState<GeneratorPage> {
   void _listen() {
     ref.listen<AddFavoriteState>(
-      addFavoriteState,
+      addFavoriteProvider,
       (previous, next) {
         if (next is SuccessAddFavoriteState) {
-          ref.read(favoriteListState.notifier).load();
+          ref.read(favoriteProvider.notifier).load();
         }
         if (next is FailureAddFavoriteState) {
           showDialog(
@@ -36,7 +36,7 @@ class _GeneratorPageState extends ConsumerState<GeneratorPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(generatorState.notifier).generator());
+    Future.microtask(() => ref.read(generatorProvider.notifier).generator());
   }
 
   @override
@@ -53,8 +53,7 @@ class _GeneratorPageState extends ConsumerState<GeneratorPage> {
   }
 
   Widget _buildContext() {
-    final generateState = ref.watch(generatorState);
-    final favoriteState = ref.watch(favoriteListState);
+    final generateState = ref.watch(generatorProvider);
 
     if (generateState is LoadingGeneratorState) {
       return const Center(
@@ -67,8 +66,7 @@ class _GeneratorPageState extends ConsumerState<GeneratorPage> {
           NewWordCardWidget(pair: generateState.newWord.asLowerCase),
           const SizedBox(height: 10),
           RowButtonsWidget(
-            generateState: generateState,
-            favoriteState: favoriteState,
+            word: generateState.newWord.asLowerCase,
           ),
         ],
       );

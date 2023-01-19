@@ -12,41 +12,39 @@ class SplashPAge extends ConsumerStatefulWidget {
 }
 
 class _SplashPAgeState extends ConsumerState<SplashPAge> {
+  void _listen() {
+    ref.listen(splashProvider, (previous, next) {
+      if (next is SuccessSplashPageState) {
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(splashState.notifier).load());
+    Future.microtask(() => ref.read(splashProvider.notifier).load());
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(splashState);
     final myColor = Theme.of(context).colorScheme.primaryContainer;
 
-    if (state is LoadingSplashPageState) {
-      return Scaffold(
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                myColor,
-                const Color.fromARGB(255, 54, 131, 86),
-              ],
-            ),
+    _listen();
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              myColor,
+              const Color.fromARGB(255, 54, 131, 86),
+            ],
           ),
-          child: const CenterTextCard(title: 'Gerador de palavras'),
         ),
-      );
-    } else if (state is SuccessSplashPageState) {
-      return state.page;
-    } else if (state is FailureSplashPageState) {
-      return AlertDialog(
-        title: Text(state.errorMessage),
-      );
-    } else {
-      return Container();
-    }
+        child: const CenterTextCardWidget(title: 'Gerador de palavras'),
+      ),
+    );
   }
 }

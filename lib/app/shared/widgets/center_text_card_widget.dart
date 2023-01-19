@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CenterTextCard extends StatelessWidget {
-  const CenterTextCard({
+class CenterTextCardWidget extends StatelessWidget {
+  const CenterTextCardWidget({
     super.key,
     required this.title,
   });
