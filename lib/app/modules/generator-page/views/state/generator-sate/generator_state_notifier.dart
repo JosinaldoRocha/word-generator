@@ -1,5 +1,5 @@
 import 'package:app_flutter/app/modules/generator-page/views/state/generator-sate/generator_state.dart';
-import 'package:app_flutter/app/shared/repositorys/generator_word_repository.dart';
+import 'package:app_flutter/app/modules/generator-page/data/repositorys/generator_word_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class GeneratorStateNotifier extends StateNotifier<GeneratorState> {

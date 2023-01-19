@@ -1,9 +1,9 @@
+import 'package:app_flutter/app/modules/favorites-page/data/models/favorite_model.dart';
 import 'package:app_flutter/app/modules/favorites-page/views/states/delete-favorite-state/delete_favorite_state.dart';
 import 'package:app_flutter/app/modules/favorites-page/views/states/favorites-list-state/favorites_list_states.dart';
 import 'package:app_flutter/app/modules/favorites-page/widgets/alert_dialog_widget.dart';
 import 'package:app_flutter/app/modules/favorites-page/widgets/favorite_list_view_widget.dart';
 import 'package:app_flutter/app/shared/dependencies/dependencies.dart';
-import 'package:app_flutter/app/shared/models/app_model.dart';
 import 'package:app_flutter/app/shared/widgets/center_text_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -68,7 +68,7 @@ class _FavoritesPageState extends ConsumerState<FavoritesPage> {
     }
   }
 
-  Widget _buildContext(List<AppModel> data) {
+  Widget _buildContext(List<FavoriteModel> data) {
     final deleteState = ref.watch(deleteFavoriteProvider);
 
     return (deleteState is LoadingDeleteFavoriteState)

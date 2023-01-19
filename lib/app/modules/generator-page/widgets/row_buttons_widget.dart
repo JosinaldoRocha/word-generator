@@ -1,7 +1,7 @@
 import 'package:app_flutter/app/modules/favorites-page/views/states/favorites-list-state/favorites_list_states.dart';
 import 'package:app_flutter/app/modules/generator-page/views/state/generator-sate/generator_state.dart';
 import 'package:app_flutter/app/shared/dependencies/dependencies.dart';
-import 'package:app_flutter/app/shared/models/app_model.dart';
+import 'package:app_flutter/app/modules/favorites-page/data/models/favorite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -32,7 +32,7 @@ class _RowButtonsWidgetState extends ConsumerState<RowButtonsWidget> {
         else
           ElevatedButton.icon(
             onPressed: () {
-              final item = AppModel(word: widget.word);
+              final item = FavoriteModel(word: widget.word);
               ref.read(addFavoriteProvider.notifier).addWord(item);
             },
             icon: Icon(icon()),
@@ -55,7 +55,7 @@ class _RowButtonsWidgetState extends ConsumerState<RowButtonsWidget> {
     IconData icon = Icons.favorite_border;
 
     if (generateState is SuccessGeneratorState) {
-      final item = AppModel(word: generateState.newWord.asLowerCase);
+      final item = FavoriteModel(word: generateState.newWord.asLowerCase);
       if (favoriteState is SuccessFavoritesListState) {
         if (favoriteState.list.any((element) => element.word == item.word)) {
           icon = Icons.favorite;

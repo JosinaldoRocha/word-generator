@@ -1,5 +1,5 @@
 import 'package:app_flutter/app/shared/dependencies/dependencies.dart';
-import 'package:app_flutter/app/shared/models/app_model.dart';
+import 'package:app_flutter/app/modules/favorites-page/data/models/favorite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,7 +8,7 @@ class FavoriteListViewWidget extends ConsumerStatefulWidget {
     super.key,
     required this.data,
   });
-  final List<AppModel> data;
+  final List<FavoriteModel> data;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
